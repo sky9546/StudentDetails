@@ -129,3 +129,48 @@ public class StudentController {
 
 	}
 }
+
+
+
+
+
+
+
+Repository 
+package net.guides.springboot.springbootcrudrestapivalidation.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import net.guides.springboot.springbootcrudrestapivalidation.model.Student;
+
+@Repository
+public interface StudentRepository extends JpaRepository<Student,Long>{
+
+	Optional<Student> findByName(@Valid String studentId);
+	static Student Post(Student student) {
+		// TODO Auto-generated method stub
+		return student;
+	}
+
+
+    @Query(value="SELECT * FROM studentdetails where grade=?1  ", nativeQuery = true)
+    public List<Student> tempQuery( String grade );
+
+   @Query(value="SELECT * FROM studentdetails group by age  ", nativeQuery = true)
+    public List<Student> ageQuery(String age);
+
+
+
+
+
+	
+
+}
+
